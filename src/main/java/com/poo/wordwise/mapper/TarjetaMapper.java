@@ -14,5 +14,6 @@ public interface TarjetaMapper {
     @Mapping(target = "siglaEstado", source = "estadoTarjeta.sigla")
     TarjetaDTO toDto(Tarjeta tarjeta);
 
+    @Mapping(target = "esFavorita", source = "esFavorita")
     Tarjeta toEntity(TarjetaDTO tarjetaDTO);
 }

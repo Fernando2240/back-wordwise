@@ -12,5 +12,13 @@ public interface ITarjetaService {
 
     Page<TarjetaDTO> findAllByIdCategoriaAndIdEstado(Long idCategoria, String estado, String query, Pageable pageable);
 
-    TarjetaDTO addToFavorites(Long idTarjeta);
+    Page<TarjetaDTO> findAllFavoritesByIdCategoria(Long idCategoria, String query, Pageable pageable);
+
+    TarjetaDTO updateEstadoTarjeta(Long idTarjeta, String estado);
+
+    TarjetaDTO deleteTarjeta(Long idTarjeta);
+
+    TarjetaDTO updateTarjeta(TarjetaDTO tarjetaDTO, MultipartFile imagen);
+
+    TarjetaDTO findTarjetaById(Long idTarjeta);
 }

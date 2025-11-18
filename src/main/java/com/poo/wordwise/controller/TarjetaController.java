@@ -32,15 +32,37 @@ public class TarjetaController {
         return ResponseEntity.ok(tarjetas);
     }
 
+    @GetMapping("/favorites/{idCategoria}")
+    public ResponseEntity<Page<TarjetaDTO>> findAllFavoritesByIdCategoria(@PathVariable("idCategoria") Long idCategoria, @RequestParam(value = "query", required = false) String query, @PageableDefault Pageable pageable){
+        Page<TarjetaDTO> favoritos = this.tarjetaService.findAllFavoritesByIdCategoria(idCategoria, query, pageable);
+        if(favoritos.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(favoritos);
+    }
+
+    @GetMapping("/{idTarjeta}")
+    public ResponseEntity<TarjetaDTO> findTarjetaById(@PathVariable("idTarjeta") Long idTarjeta) {
+        return ResponseEntity.ok(this.tarjetaService.findTarjetaById(idTarjeta));
+    }
+
     @PostMapping("/create")
-    public ResponseEntity<TarjetaDTO> createTarjeta(@RequestPart("tarjeta") TarjetaDTO tarjetaDTO, @RequestPart("imagen") MultipartFile imagen) {
+    public ResponseEntity<TarjetaDTO> createTarjeta(@RequestPart("tarjeta") TarjetaDTO tarjetaDTO, @RequestPart(value = "imagen", required = false) MultipartFile imagen) {
         TarjetaDTO tarjeta = this.tarjetaService.createTarjeta(tarjetaDTO, imagen);
         return ResponseEntity.ok(tarjeta);
     }
 
-    @PutMapping("/favorite/{idTarjeta}")
-    public ResponseEntity<TarjetaDTO> addToFavorites(@PathVariable("idTarjeta") Long idTarjeta){
-        return ResponseEntity.ok(this.tarjetaService.addToFavorites(idTarjeta));
+    @PutMapping("/status/{idTarjeta}/{estado}")
+    public ResponseEntity<TarjetaDTO> updateEstadoTarjeta(@PathVariable("idTarjeta") Long idTarjeta, @PathVariable("estado") String estado){
+        return ResponseEntity.ok(this.tarjetaService.updateEstadoTarjeta(idTarjeta, estado));
+    }
+
+    @PutMapping()
+    public ResponseEntity<TarjetaDTO> updateTarjeta(@RequestPart("tarjeta") TarjetaDTO tarjetaDTO, @RequestPart(value = "imagen", required = false) MultipartFile imagen){
+        return ResponseEntity.ok(this.tarjetaService.updateTarjeta(tarjetaDTO, imagen));
+    }
+
+    @DeleteMapping("/{idTarjeta}")
+    public ResponseEntity<TarjetaDTO> deleteTarjeta(@PathVariable("idTarjeta") Long idTarjeta){
+        return ResponseEntity.ok(this.tarjetaService.deleteTarjeta(idTarjeta));
     }
 
     @Autowired

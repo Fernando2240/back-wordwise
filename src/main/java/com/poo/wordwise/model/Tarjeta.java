@@ -40,6 +40,9 @@ public class Tarjeta implements Serializable {
     @Column(name = "id_estado")
     private Long idEstado;
 
+    @Column(name = "favorita")
+    private boolean esFavorita;
+
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
 

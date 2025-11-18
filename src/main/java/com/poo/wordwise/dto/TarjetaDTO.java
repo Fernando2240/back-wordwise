@@ -23,4 +23,5 @@ public class TarjetaDTO implements Serializable {
     private String traduccion;
     private String imagen;
     private String siglaEstado;
+    private boolean esFavorita;
 }

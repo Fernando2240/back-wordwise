@@ -24,7 +24,7 @@ public class CloudinaryService {
      * @return URL de la imagen
      */
     public String uploadImage(MultipartFile file, String folder) throws IOException {
-        String publicId = folder + "/" + UUID.randomUUID().toString();
+        String publicId = folder + "/" + UUID.randomUUID();
 
         Map uploadResult = cloudinary.uploader().upload(
                 file.getBytes(),
