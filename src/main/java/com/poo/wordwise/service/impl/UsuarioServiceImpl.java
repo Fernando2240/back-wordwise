@@ -6,6 +6,7 @@ import com.poo.wordwise.model.Usuario;
 import com.poo.wordwise.repository.IUsuarioRepository;
 import com.poo.wordwise.service.intefaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioServiceImpl implements IUsuarioService {
 
     private IUsuarioRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -22,7 +24,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         if (existeUsuario) throw new WordWiseValidationException("Ya existe un usuario con el email " + usuarioDTO.getUsername());
         Usuario usuario = new Usuario();
         usuario.setEmail(usuarioDTO.getUsername());
-        usuario.setContrasenna(usuarioDTO.getPassword());
+        usuario.setContrasenna(passwordEncoder.encode(usuarioDTO.getPassword()));
         usuario.setActivo(true);
         this.userRepository.save(usuario);
         usuarioDTO.setPassword(null);
@@ -42,5 +44,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Autowired
     public void setUserRepository(IUsuarioRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }
