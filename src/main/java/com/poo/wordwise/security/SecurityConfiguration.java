@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/usuario/register").permitAll()
                         .anyRequest().hasRole("USER")
                 ).exceptionHandling(ex -> ex
                         .authenticationEntryPoint(authEntryPoint) // 401
