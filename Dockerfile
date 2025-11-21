@@ -1,18 +1,22 @@
-# Imagen base con Java 21
 FROM eclipse-temurin:21-jdk-alpine
+
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
 WORKDIR /app
 
-# Copiar archivos del proyecto
 COPY pom.xml .
-COPY src ./src
-COPY mvnw .
 COPY .mvn .mvn
+COPY mvnw .
 
-# Dar permisos
 RUN chmod +x ./mvnw
 
-# Compilar
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw dependency:go-offline -B || true
 
-# Ejecutar
-CMD ["java", "-jar", "target/*.jar"]
+COPY src ./src
+
+RUN ./mvnw clean package -DskipTests -Dproject.build.sourceEncoding=UTF-8
+
+EXPOSE 8080
+
+CMD ["java", "-Dserver.port=${PORT:-8080}", "-Dfile.encoding=UTF-8", "-jar", "target/*.jar"]
