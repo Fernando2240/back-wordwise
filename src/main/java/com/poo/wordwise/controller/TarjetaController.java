@@ -17,7 +17,7 @@ public class TarjetaController {
 
     private ITarjetaService tarjetaService;
 
-    @GetMapping("/{idCategoria}")
+    @GetMapping("categoria/{idCategoria}")
     public ResponseEntity<Page<TarjetaDTO>> findAllByIdCategoria(@PathVariable("idCategoria") Long idCategoria, @PageableDefault Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(),  1);
         Page<TarjetaDTO> targetas = this.tarjetaService.findAllByIdCategoria(idCategoria, pageable);
