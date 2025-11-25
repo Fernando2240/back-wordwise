@@ -4,7 +4,6 @@ import com.poo.wordwise.dto.TarjetaDTO;
 import com.poo.wordwise.service.intefaces.ITarjetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ public class TarjetaController {
 
     @GetMapping("categoria/{idCategoria}")
     public ResponseEntity<Page<TarjetaDTO>> findAllByIdCategoria(@PathVariable("idCategoria") Long idCategoria, @PageableDefault Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber(),  1);
         Page<TarjetaDTO> targetas = this.tarjetaService.findAllByIdCategoria(idCategoria, pageable);
         if(targetas.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(targetas);
