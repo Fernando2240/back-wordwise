@@ -18,8 +18,8 @@ public class TarjetaController {
     private ITarjetaService tarjetaService;
 
     @GetMapping("categoria/{idCategoria}")
-    public ResponseEntity<Page<TarjetaDTO>> findAllByIdCategoria(@PathVariable("idCategoria") Long idCategoria, @PageableDefault Pageable pageable) {
-        Page<TarjetaDTO> targetas = this.tarjetaService.findAllByIdCategoria(idCategoria, pageable);
+    public ResponseEntity<Page<TarjetaDTO>> findAllByIdCategoria(@PathVariable("idCategoria") Long idCategoria, @RequestParam(value = "query", required = false) String query, @PageableDefault Pageable pageable) {
+        Page<TarjetaDTO> targetas = this.tarjetaService.findAllByIdCategoria(idCategoria, query, pageable);
         if(targetas.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(targetas);
     }

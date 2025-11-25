@@ -30,8 +30,8 @@ public class TarjetaServiceImpl implements ITarjetaService {
     private CloudinaryService cloudinaryService;
 
     @Override
-    public Page<TarjetaDTO> findAllByIdCategoria(Long idCategoria, Pageable pageable) {
-        Page<Tarjeta> tarjetas = this.tajetaRepository.findAllByIdCategoria(idCategoria, pageable);
+    public Page<TarjetaDTO> findAllByIdCategoria(Long idCategoria, String query, Pageable pageable) {
+        Page<Tarjeta> tarjetas = this.tajetaRepository.findAllByIdCategoria(idCategoria, cleanValue(query), pageable);
         return new PageImpl<>(tarjetas.getContent().stream().map(TarjetaMapper.INSTANCE::toDto).toList(),  pageable, tarjetas.getTotalElements());
     }
 

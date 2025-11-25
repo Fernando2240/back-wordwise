@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ITarjetaService {
-    Page<TarjetaDTO> findAllByIdCategoria(Long idCategoria, Pageable pageable);
+    Page<TarjetaDTO> findAllByIdCategoria(Long idCategoria, String query, Pageable pageable);
 
     TarjetaDTO createTarjeta(TarjetaDTO tarjetaDTO, MultipartFile imagen);
 
