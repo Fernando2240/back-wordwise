@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/tarjeta")
+@CrossOrigin("*")
 public class TarjetaController {
 
     private ITarjetaService tarjetaService;
