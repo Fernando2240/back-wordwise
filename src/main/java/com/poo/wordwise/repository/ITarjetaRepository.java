@@ -16,6 +16,7 @@ public interface ITarjetaRepository extends JpaRepository<Tarjeta, Long> {
             "   OR UPPER(TRANSLATE(t.traduccion, 'ÁÉÍÓÚáéíóú', 'AEIOUaeiou')) LIKE :query )")
     Page<Tarjeta> findAllByIdCategoriaAndIdEstado(Long idCategoria, Long idEstado, String query, Pageable pageable);
 
+    @Query("SELECT t FROM Tarjeta t WHERE t.idCategoria = :idCategoria ORDER BY RANDOM()")
     Page<Tarjeta> findAllByIdCategoria(Long idCategoria, Pageable pageable);
 
     @Query("SELECT t FROM Tarjeta t WHERE t.idCategoria =:idCategoria " +
