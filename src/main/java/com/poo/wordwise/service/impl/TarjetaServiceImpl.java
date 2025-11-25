@@ -135,9 +135,10 @@ public class TarjetaServiceImpl implements ITarjetaService {
                 throw new WordWiseValidationException(e.getMessage());
             }
             tarjeta.setImagen(null);
-            String url = subirImagen(imagen);
-            tarjeta.setImagen(url);
-            }
+        }
+
+        String url = subirImagen(imagen);
+        tarjeta.setImagen(url);
 
         return TarjetaMapper.INSTANCE.toDto(this.tajetaRepository.save(tarjeta));
     }
