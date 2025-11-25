@@ -128,17 +128,19 @@ public class TarjetaServiceImpl implements ITarjetaService {
         tarjeta.setTraduccion(tarjetaDTO.getTraduccion());
         tarjeta.setEsFavorita(tarjetaDTO.isEsFavorita());
 
-        if(imagen != null && !imagen.isEmpty() && tarjeta.getImagen() != null ){
-            try {
-                this.cloudinaryService.deleteImage(tarjeta.getImagen());
-            } catch (IOException e) {
-                throw new WordWiseValidationException(e.getMessage());
+        if(imagen != null && !imagen.isEmpty()){
+            if(tarjeta.getImagen() != null){
+                try {
+                    this.cloudinaryService.deleteImage(tarjeta.getImagen());
+                } catch (IOException e) {
+                    throw new WordWiseValidationException(e.getMessage());
+                }
             }
-            tarjeta.setImagen(null);
-        }
 
-        String url = subirImagen(imagen);
-        tarjeta.setImagen(url);
+            tarjeta.setImagen(null);
+            String url = subirImagen(imagen);
+            tarjeta.setImagen(url);
+        }
 
         return TarjetaMapper.INSTANCE.toDto(this.tajetaRepository.save(tarjeta));
     }
